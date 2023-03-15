@@ -22,6 +22,7 @@ jobs:
         run: bash ./scripts/ci-mock-project-build.sh
 
       - uses: actions-cool/ci-notice@v1
+        if: ${{ failure() }}
         with:
           notice-types: 'dingding'
           dingding-token: ${{ secrets.DINGDING_TOKEN }}
