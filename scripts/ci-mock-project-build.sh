@@ -8,7 +8,7 @@ git clone https://github.com/ant-design/create-next-app-antd.git ~tmpProj --dept
 
 # install
 cd ~tmpProj
-tnpm i
+yarn
 
 # build
-npm run build
+yarn run build
