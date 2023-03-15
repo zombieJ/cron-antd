@@ -27,4 +27,3 @@ jobs:
           dingding-token: ${{ secrets.DINGDING_TOKEN }}
           notice-title: 'proj 构建挂了'
           notice-body: '来看看吧'
-6bd360814aac2468edb31c49e6377a182e28954730420b2d8e0a7f324fc36448
