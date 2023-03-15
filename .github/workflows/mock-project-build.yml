@@ -22,9 +22,9 @@ jobs:
         run: bash ./scripts/ci-mock-project-build.sh
 
       - uses: actions-cool/ci-notice@v1
-        if: ${{ failure() }}
+        # if: ${{ failure() }}
         with:
           notice-types: 'dingding'
           dingding-token: ${{ secrets.DINGDING_TOKEN }}
-          notice-title: 'proj 构建挂了'
-          notice-body: '来看看吧'
+          notice-title: 'Mock Project Build Failed'
+          notice-body: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
