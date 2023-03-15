@@ -2,6 +2,7 @@
 name: Mock Project Build
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/30 * * * *'
 
