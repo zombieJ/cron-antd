@@ -46,9 +46,9 @@ jobs:
       - name: diff if filed
         if: ${{ failure() }}
         run: |
+          yarn add diff-yarn-lock
           if [ -f ~tmpProj/yarn.lock ]; then
-            echo "yarn.lock file exists"
-            diff ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
+            npx diff-yarn-lock ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
           fi
 
       - uses: actions-cool/ci-notice@v1

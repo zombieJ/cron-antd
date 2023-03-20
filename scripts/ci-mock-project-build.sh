@@ -4,8 +4,8 @@
 rm -rf ~tmpProj/
 
 # clone project
-# git clone https://github.com/ant-design/create-next-app-antd.git ~tmpProj --depth=1
- git clone https://github.com/zombieJ/tmp-create-next-app-antd ~tmpProj --depth=1
+git clone https://github.com/ant-design/create-next-app-antd.git ~tmpProj --depth=1
+# git clone https://github.com/zombieJ/tmp-create-next-app-antd ~tmpProj --depth=1
 
 # change directory
 cd ~tmpProj
