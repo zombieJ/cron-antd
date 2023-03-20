@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ~tmpProj/yarn.lock
-          key: lock-file
+          restore-keys: lock-file
 
       - name: ls tmpProj
         if: ${{ failure() }}
@@ -61,4 +61,5 @@ jobs:
       - uses: actions/cache/save@v3
         with:
           path: ~tmpProj/yarn.lock
-          key: lock-file
+          key: primes-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: lock-file
