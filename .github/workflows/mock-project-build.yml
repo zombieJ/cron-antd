@@ -46,7 +46,6 @@ jobs:
       - name: diff if filed
         if: ${{ failure() }}
         run: |
-          npm install --no-save diff-yarn-lock
           if [ -f ~tmpProj/yarn.lock ]; then
             npx diff-yarn-lock ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
           fi
