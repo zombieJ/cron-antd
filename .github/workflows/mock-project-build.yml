@@ -26,11 +26,6 @@ jobs:
       - name: Run Script
         run: bash ./scripts/ci-mock-project-build.sh
 
-      - uses: actions/cache/save@v3
-        with:
-          path: ~tmpProj/yarn.lock
-          key: lock-file
-
       ##################################################################
       ##                        Diff Lock File                        ##
       ##################################################################
@@ -49,7 +44,7 @@ jobs:
         if: ${{ failure() }}
         run: ls ~tmpProj
 
-      - name: diff if filed
+      - name: 🎨 Diff Report
         if: ${{ failure() }}
         run: npx diff-yarn-lock --source=~tmpProj/yarn.lock --target=~tmpProj/yarn.lock.failed
 
@@ -59,3 +54,11 @@ jobs:
           notice-types: 'dingding'
           dingding-token: ${{ secrets.DINGDING_BOT_COLLABORATOR_TOKEN }}
           notice-title: 'CI Mock Project Build Failed'
+
+      ##################################################################
+      ##                        Save Lock File                        ##
+      ##################################################################
+      - uses: actions/cache/save@v3
+        with:
+          path: ~tmpProj/yarn.lock
+          key: lock-file
