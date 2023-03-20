@@ -24,26 +24,46 @@ jobs:
       - name: Run Script
         run: bash ./scripts/ci-mock-project-build.sh
 
-      - name: Upload success lock file
-        uses: actions/upload-artifact@v3
+      # - name: Upload success lock file
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: lock-file
+      #     path: ~tmpProj/yarn.lock
+
+      - uses: actions/cache/save@v3
+        id: cache
         with:
-          name: lock-file
           path: ~tmpProj/yarn.lock
+          key: lock-file
 
       ##################################################################
       ##                        Diff Lock File                        ##
       ##################################################################
-      - name: Download success lock file
+      # - name: Download success lock file
+      #   if: ${{ failure() }}
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: lock-file
+      - name: Rename failed lock file
         if: ${{ failure() }}
-        uses: actions/download-artifact@v3
+        run: |
+          if [ -f ~tmpProj/yarn.lock ]; then
+            mv ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
+          fi
+
+      - name: Download success lock file as `success.lock`
+        uses: actions/cache/restore@v3
+        id: cache
         with:
-          name: lock-file
+          path: ~tmpProj/yarn.lock
+          key: lock-file
 
       - name: diff if filed
         if: ${{ failure() }}
         run: |
           if [ -f ~tmpProj/yarn.lock ]; then
-            diff ~tmpProj/yarn.lock yarn.lock
+            echo "yarn.lock file exists"
+            diff ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
           fi
 
       - uses: actions-cool/ci-notice@v1
