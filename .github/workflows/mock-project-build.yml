@@ -51,7 +51,7 @@ jobs:
 
       - name: diff if filed
         if: ${{ failure() }}
-        run: npx diff-yarn-lock ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
+        run: npx diff-yarn-lock --source=~tmpProj/yarn.lock --target=~tmpProj/yarn.lock.failed
 
       - uses: actions-cool/ci-notice@v1
         if: ${{ failure() }}
