@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '*/30 * * * *'
 
+# Cancel prev CI if new commit come
+concurrency:
+  group: unique
+  cancel-in-progress: true
+
 jobs:
   pr-check-ci:
     runs-on: ubuntu-latest
