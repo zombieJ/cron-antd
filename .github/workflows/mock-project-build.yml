@@ -58,7 +58,7 @@ jobs:
       ##################################################################
       ##                        Save Lock File                        ##
       ##################################################################
-      - uses: actions/cache/save@v3
+      - uses: actions/cache@v3
         with:
           path: ~tmpProj/yarn.lock
           key: primes-${{ runner.os }}-${{ github.run_id }}
