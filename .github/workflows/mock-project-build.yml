@@ -18,12 +18,37 @@ jobs:
         with:
           node-version: 16
 
+      - name: install yaml
+        run: npm add --no-save yaml
+
       - name: Run Script
         run: bash ./scripts/ci-mock-project-build.sh
+
+      - name: Upload success lock file
+        uses: actions/upload-artifact@v3
+        with:
+          name: lock-file
+          path: ~tmpProj/yarn.lock
+
+      ##################################################################
+      ##                        Diff Lock File                        ##
+      ##################################################################
+      - name: Download success lock file
+        if: ${{ failure() }}
+        uses: actions/download-artifact@v3
+        with:
+          name: lock-file
+
+      - name: diff if filed
+        if: ${{ failure() }}
+        run: |
+          if [ -f ~tmpProj/yarn.lock ]; then
+            diff ~tmpProj/yarn.lock yarn.lock
+          fi
 
       - uses: actions-cool/ci-notice@v1
         if: ${{ failure() }}
         with:
           notice-types: 'dingding'
-          dingding-token: ${{ secrets.DINGDING_TOKEN }}
-          notice-title: 'Mock Project Build Failed'
+          dingding-token: ${{ secrets.DINGDING_BOT_COLLABORATOR_TOKEN }}
+          notice-title: 'CI Mock Project Build Failed'
