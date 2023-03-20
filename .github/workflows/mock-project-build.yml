@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: 16
 
+      - uses: actions/cache@v3
+        with:
+          path: ~tmpProj/yarn.lock
+          key: primes-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: lock-file
+
       - name: Run Script
         run: bash ./scripts/ci-mock-project-build.sh
 
@@ -54,12 +60,3 @@ jobs:
           notice-types: 'dingding'
           dingding-token: ${{ secrets.DINGDING_BOT_COLLABORATOR_TOKEN }}
           notice-title: 'CI Mock Project Build Failed'
-
-      ##################################################################
-      ##                        Save Lock File                        ##
-      ##################################################################
-      - uses: actions/cache@v3
-        with:
-          path: ~tmpProj/yarn.lock
-          key: primes-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: lock-file
