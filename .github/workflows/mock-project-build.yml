@@ -36,10 +36,7 @@ jobs:
       ##################################################################
       - name: Rename failed lock file
         if: ${{ failure() }}
-        run: |
-          if [ -f ~tmpProj/yarn.lock ]; then
-            mv ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
-          fi
+        run: mv ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
 
       - name: Download success lock file as `success.lock`
         if: ${{ failure() }}
@@ -48,12 +45,13 @@ jobs:
           path: ~tmpProj/yarn.lock
           key: lock-file
 
+      - name: ls tmpProj
+        if: ${{ failure() }}
+        run: ls ~tmpProj
+
       - name: diff if filed
         if: ${{ failure() }}
-        run: |
-          if [ -f ~tmpProj/yarn.lock ]; then
-            npx diff-yarn-lock ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
-          fi
+        run: npx diff-yarn-lock ~tmpProj/yarn.lock ~tmpProj/yarn.lock.failed
 
       - uses: actions-cool/ci-notice@v1
         if: ${{ failure() }}
