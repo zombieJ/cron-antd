@@ -18,17 +18,8 @@ jobs:
         with:
           node-version: 16
 
-      - name: install yaml
-        run: npm add --no-save yaml
-
       - name: Run Script
         run: bash ./scripts/ci-mock-project-build.sh
-
-      # - name: Upload success lock file
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: lock-file
-      #     path: ~tmpProj/yarn.lock
 
       - uses: actions/cache/save@v3
         with:
@@ -38,11 +29,6 @@ jobs:
       ##################################################################
       ##                        Diff Lock File                        ##
       ##################################################################
-      # - name: Download success lock file
-      #   if: ${{ failure() }}
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: lock-file
       - name: Rename failed lock file
         if: ${{ failure() }}
         run: |
@@ -51,6 +37,7 @@ jobs:
           fi
 
       - name: Download success lock file as `success.lock`
+        if: ${{ failure() }}
         uses: actions/cache/restore@v3
         with:
           path: ~tmpProj/yarn.lock
