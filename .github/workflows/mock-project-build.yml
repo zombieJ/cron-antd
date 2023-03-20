@@ -44,6 +44,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ~tmpProj/yarn.lock
+          key: primes-${{ runner.os }}-${{ github.run_id }}
           restore-keys: lock-file
 
       - name: ls tmpProj
