@@ -31,7 +31,6 @@ jobs:
       #     path: ~tmpProj/yarn.lock
 
       - uses: actions/cache/save@v3
-        id: cache
         with:
           path: ~tmpProj/yarn.lock
           key: lock-file
@@ -53,7 +52,6 @@ jobs:
 
       - name: Download success lock file as `success.lock`
         uses: actions/cache/restore@v3
-        id: cache
         with:
           path: ~tmpProj/yarn.lock
           key: lock-file
