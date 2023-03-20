@@ -27,7 +27,7 @@ jobs:
         with:
           path: ~tmpProj/yarn.lock
           key: primes-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: lock-file
+          restore-keys: mock-proj-lock-file
 
       - name: Run Script
         run: bash ./scripts/ci-mock-project-build.sh
@@ -45,7 +45,7 @@ jobs:
         with:
           path: ~tmpProj/yarn.lock
           key: primes-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: lock-file
+          restore-keys: mock-proj-lock-file
 
       - name: ls tmpProj
         if: ${{ failure() }}
